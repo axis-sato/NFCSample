@@ -12,6 +12,7 @@
 		D3E0013D1F2B798500BC556A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E0013B1F2B798500BC556A /* Main.storyboard */; };
 		D3E0013F1F2B798500BC556A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E0013E1F2B798500BC556A /* Assets.xcassets */; };
 		D3E001421F2B798500BC556A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E001401F2B798500BC556A /* LaunchScreen.storyboard */; };
+		D3E0014C1F2B834100BC556A /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E0014B1F2B834100BC556A /* CoreNFC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		D3E001411F2B798500BC556A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3E001431F2B798500BC556A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3E001491F2B7F0B00BC556A /* NFCSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NFCSample.entitlements; sourceTree = "<group>"; };
+		D3E0014B1F2B834100BC556A /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E0014C1F2B834100BC556A /* CoreNFC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +44,7 @@
 			children = (
 				D3E001361F2B798500BC556A /* NFCSample */,
 				D3E001351F2B798500BC556A /* Products */,
+				D3E0014A1F2B834100BC556A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +68,14 @@
 				D3E001431F2B798500BC556A /* Info.plist */,
 			);
 			path = NFCSample;
+			sourceTree = "<group>";
+		};
+		D3E0014A1F2B834100BC556A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3E0014B1F2B834100BC556A /* CoreNFC.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
