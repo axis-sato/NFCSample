@@ -22,6 +22,7 @@
 		D3E0013E1F2B798500BC556A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3E001411F2B798500BC556A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3E001431F2B798500BC556A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3E001491F2B7F0B00BC556A /* NFCSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NFCSample.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		D3E001361F2B798500BC556A /* NFCSample */ = {
 			isa = PBXGroup;
 			children = (
+				D3E001491F2B7F0B00BC556A /* NFCSample.entitlements */,
 				D3E001371F2B798500BC556A /* AppDelegate.swift */,
 				D3E001391F2B798500BC556A /* ViewController.swift */,
 				D3E0013B1F2B798500BC556A /* Main.storyboard */,
@@ -96,6 +98,11 @@
 				TargetAttributes = {
 					D3E001331F2B798500BC556A = {
 						CreatedOnToolsVersion = 9.0;
+						SystemCapabilities = {
+							com.apple.NearFieldCommunicationTagReading = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -273,10 +280,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ALT3589ELY;
+				CODE_SIGN_ENTITLEMENTS = NFCSample/NFCSample.entitlements;
+				DEVELOPMENT_TEAM = Y25J2RX49S;
 				INFOPLIST_FILE = NFCSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.mediaxis.NFCSample;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.mediaxis.nfc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -287,10 +295,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ALT3589ELY;
+				CODE_SIGN_ENTITLEMENTS = NFCSample/NFCSample.entitlements;
+				DEVELOPMENT_TEAM = Y25J2RX49S;
 				INFOPLIST_FILE = NFCSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.mediaxis.NFCSample;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.mediaxis.nfc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
