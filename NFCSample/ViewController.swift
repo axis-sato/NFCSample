@@ -14,18 +14,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        
+    }
+    
+    @IBAction func didTapStart(_ sender: Any) {
         session = NFCNDEFReaderSession(delegate: self,
                                        queue: nil,
                                        invalidateAfterFirstRead: true)
         session.begin()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
@@ -34,6 +29,7 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
     func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
         for message in messages {
             for record in message.records {
+                print("typeNameFormat: \(record.typeNameFormat.rawValue)")
                 if let type = String.init(data: record.type, encoding: .utf8) {
                     print("type: \(type)")
                 }
