@@ -18,11 +18,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7w-Dv-r6e">
-                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <rect key="frame" x="150" y="389" width="75" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="start"/>
+                                <state key="normal" title="start NFC"/>
                                 <connections>
                                     <action selector="didTapStart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zXY-0q-Yuu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxq-lQ-IiT">
+                                <rect key="frame" x="117" y="179" width="141" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="stop scanning BLE"/>
+                                <connections>
+                                    <action selector="didTapStopScanning:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FEo-me-o7Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffM-4P-1Ly">
+                                <rect key="frame" x="121" y="116" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="start scanning BLE"/>
+                                <connections>
+                                    <action selector="didTapStartScanning:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0w1-zR-44Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEA-nL-bHC">
+                                <rect key="frame" x="140" y="236" width="94" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="connect BLE"/>
+                                <connections>
+                                    <action selector="didTapConnectBLE:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g4y-Oa-ZrH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -32,6 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="45.600000000000001" y="38.23088455772114"/>
         </scene>
     </scenes>
 </document>
