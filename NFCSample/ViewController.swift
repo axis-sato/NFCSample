@@ -18,45 +18,44 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        setupCentralManager()
+    }
+}
+
+// MARK: Event
+extension ViewController {
+    @IBAction func didTapStartNFCSession(_ sender: Any) {
+        print("start NFC Session")
+        startNFCSession()
     }
     
-    @IBAction func didTapStart(_ sender: Any) {
-        session = NFCNDEFReaderSession(delegate: self,
-                                       queue: nil,
-                                       invalidateAfterFirstRead: true)
-        session.begin()
-    }
-    @IBAction func didTapStartScanning(_ sender: Any) {
-        print("start scanning")
+    @IBAction func didTapStartBLEScan(_ sender: Any) {
+        print("start BLE scan")
         centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
-    @IBAction func didTapStopScanning(_ sender: Any) {
-        print("stop scanning")
+    @IBAction func didTapStopBLEScan(_ sender: Any) {
+        print("stop BLE scan")
         centralManager.stopScan()
     }
     @IBAction func didTapConnectBLE(_ sender: Any) {
-        connectTo(UUID: "14443C9D-F958-224A-1D22-40DAEC0902C5")
-    }
-    
-    private func connectTo(UUID: String) {
-        let peripherals = centralManager.retrievePeripherals(withIdentifiers: [NSUUID(uuidString: UUID)! as UUID])
-        
-        guard let peripheral = peripherals.first else {
-            print("\(UUID)のperipheralが見つかりません。")
-            return
-        }
-        
-        self.peripheral = peripheral
-        print("peripheral: \(peripheral)")
-        print("BLE接続開始...")
-        centralManager.connect(self.peripheral, options: nil)
+        connectTo(id: "14443C9D-F958-224A-1D22-40DAEC0902C5")
     }
 }
 
 
 // MARK: NFCNDEFReaderSessionDelegate
 extension ViewController: NFCNDEFReaderSessionDelegate {
+    private func setupCentralManager() {
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+    private func startNFCSession() {
+        session = NFCNDEFReaderSession(delegate: self,
+                                       queue: nil,
+                                       invalidateAfterFirstRead: true)
+        session.begin()
+    }
+    
     func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
         for message in messages {
             for record in message.records {
@@ -75,7 +74,7 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
             }
         }
         
-        connectTo(UUID: "14443C9D-F958-224A-1D22-40DAEC0902C5")
+        connectTo(id: "14443C9D-F958-224A-1D22-40DAEC0902C5")
     }
     
     public func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
@@ -86,6 +85,24 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
 
 // MARK: CBCentralManagerDelegate
 extension ViewController: CBCentralManagerDelegate {
+    private func connectTo(id: String) {
+        guard let id = UUID(uuidString: id) else {
+        print("UUID生成に失敗")
+            return
+        }
+        let peripherals = centralManager.retrievePeripherals(withIdentifiers: [id])
+        
+        guard let peripheral = peripherals.first else {
+            print("\(id)のperipheralが見つかりません。")
+            return
+        }
+        
+        self.peripheral = peripheral
+        print("peripheral: \(peripheral)")
+        print("BLE接続開始...")
+        centralManager.connect(self.peripheral, options: nil)
+    }
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print(central.state)
     }
