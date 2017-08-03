@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var session: NFCNDEFReaderSession!
     var centralManager: CBCentralManager!
     var peripheral: CBPeripheral!
+    let id = "EF1EDDF7-4BE8-5B2D-756B-EAFC28B634AD"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,7 @@ extension ViewController {
         centralManager.stopScan()
     }
     @IBAction func didTapConnectBLE(_ sender: Any) {
-        connectTo(id: "14443C9D-F958-224A-1D22-40DAEC0902C5")
+        connectTo(id: id)
     }
 }
 
@@ -74,7 +75,7 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
             }
         }
         
-        connectTo(id: "14443C9D-F958-224A-1D22-40DAEC0902C5")
+        connectTo(id: id)
     }
     
     public func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
@@ -120,9 +121,36 @@ extension ViewController: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         log?.debug("BLE接続成功")
+        peripheral.delegate = self
+        peripheral.discoverServices(nil)
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         log?.debug("BLE接続失敗")
+    }
+}
+
+// MARK: CBPeripheralDelegate
+extension ViewController: CBPeripheralDelegate {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else {
+            log?.debug("Serviceがありません。")
+            return
+        }
+        for service in services {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else {
+            log?.debug("Characteristicがありません。")
+            return
+        }
+        for characteristic in characteristics {
+            if let value = characteristic.value, let v = String.init(data: value, encoding: .utf8) {
+                log?.debug("characteristic value: \(v)")
+            }
+        }
     }
 }
