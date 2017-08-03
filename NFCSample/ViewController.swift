@@ -25,16 +25,16 @@ class ViewController: UIViewController {
 // MARK: Event
 extension ViewController {
     @IBAction func didTapStartNFCSession(_ sender: Any) {
-        print("start NFC Session")
+        log?.debug("start NFC Session")
         startNFCSession()
     }
     
     @IBAction func didTapStartBLEScan(_ sender: Any) {
-        print("start BLE scan")
+        log?.debug("start BLE scan")
         centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
     @IBAction func didTapStopBLEScan(_ sender: Any) {
-        print("stop BLE scan")
+        log?.debug("stop BLE scan")
         centralManager.stopScan()
     }
     @IBAction func didTapConnectBLE(_ sender: Any) {
@@ -59,17 +59,17 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
     func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
         for message in messages {
             for record in message.records {
-                print("typeNameFormat: \(record.typeNameFormat.rawValue)")
+                log?.debug("typeNameFormat: \(record.typeNameFormat.rawValue)")
                 if let type = String.init(data: record.type, encoding: .utf8) {
-                    print("type: \(type)")
+                    log?.debug("type: \(type)")
                 }
                 if let identifier = String.init(data: record.identifier, encoding: .utf8) {
-                    print("identifier: \(identifier)")
+                    log?.debug("identifier: \(identifier)")
                 }
-                print(NSData(data: record.payload))
-                print(record.payload.map { String(format: "%.2hhx", $0) }.joined())
+                log?.debug(NSData(data: record.payload))
+                log?.debug(record.payload.map { String(format: "%.2hhx", $0) }.joined())
                 if let payload = String.init(data: record.payload, encoding: .ascii) {
-                    print("payload: \(payload)")
+                    log?.debug("payload: \(payload)")
                 }
             }
         }
@@ -78,7 +78,7 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
     }
     
     public func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-        print(#function, error)
+        log?.error(error)
     }
 }
 
@@ -87,42 +87,42 @@ extension ViewController: NFCNDEFReaderSessionDelegate {
 extension ViewController: CBCentralManagerDelegate {
     private func connectTo(id: String) {
         guard let id = UUID(uuidString: id) else {
-        print("UUID生成に失敗")
+        log?.error("UUID生成に失敗")
             return
         }
         let peripherals = centralManager.retrievePeripherals(withIdentifiers: [id])
         
         guard let peripheral = peripherals.first else {
-            print("\(id)のperipheralが見つかりません。")
+            log?.error("\(id)のperipheralが見つかりません。")
             return
         }
         
         self.peripheral = peripheral
-        print("peripheral: \(peripheral)")
-        print("BLE接続開始...")
+        log?.debug("peripheral: \(peripheral)")
+        log?.debug("BLE接続開始...")
         centralManager.connect(self.peripheral, options: nil)
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print(central.state)
+        log?.debug(central.state)
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if peripheral.name == "Blank" {
-            print("UUID: \(peripheral.identifier)")
+            log?.debug("UUID: \(peripheral.identifier)")
         }
-        print(peripheral)
+        log?.debug(peripheral)
         if let serviceData = advertisementData[CBAdvertisementDataServiceDataKey] as? [CBUUID : NSData] {
-            print(serviceData)
+            log?.debug(serviceData)
         }
-        print("-----------------------------------")
+        log?.debug("-----------------------------------")
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("BLE接続成功")
+        log?.debug("BLE接続成功")
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        print("BLE接続失敗")
+        log?.debug("BLE接続失敗")
     }
 }
